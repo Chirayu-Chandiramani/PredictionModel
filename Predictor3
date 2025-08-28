@@ -1,0 +1,40 @@
+import pandas as pd
+
+# Load telemetry file
+file_path = r"C:\Users\chand\Downloads\cansat_telemetry.xlsx"
+df = pd.read_excel(file_path, sheet_name="Sheet1")
+
+# Assumptions
+parachute_altitude = 100      # altitude at which parachute deploys (m)
+freefall_speed = 50           # descent speed before parachute (m/s)
+parachute_speed = 5           # descent speed after parachute (m/s)
+
+# Loop over telemetry and make predictions
+predictions = []
+for i, row in df.iterrows():
+    altitude = row["altitude"]  # altitude column
+    
+    if altitude > parachute_altitude:
+        descent_rate = freefall_speed
+    else:
+        descent_rate = parachute_speed
+    
+    # Time remaining to ground = altitude / descent rate
+    time_to_land = altitude / descent_rate
+    
+    # Horizontal drift (simple assumption = 0 if you don’t have velocity)
+    horizontal_drift = 0  
+    
+    predictions.append({
+        "TimeIndex": i,
+        "Altitude": altitude,
+        "DescentRate": descent_rate,
+        "PredictedTimeToLand_s": round(time_to_land, 2),
+        "PredictedLandingX_m": horizontal_drift,
+        "PredictedLandingY_m": horizontal_drift
+    })
+
+# Convert to DataFrame for display
+pred_df = pd.DataFrame(predictions)
+print(pred_df)   # prints the table in terminal
+pred_df.to_excel("predicted_landing.xlsx", index=False)  # saves to Excel
