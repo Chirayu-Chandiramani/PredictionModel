@@ -1,5 +1,5 @@
 # Predictor2 is finalized
-The main model is Predictor3 and will be refering only to Predictor2 henceforth
+The main model is Predictor2 and will be refering only to Predictor2 henceforth
 
 This Python script reads the CanSat telemetry file row-by-row, and for each telemetry snapshot it uses simple physics (parachute terminal velocity + horizontal drift estimated from GPS movement) to predict where the payload will land (latitude & longitude). It also writes per-row predictions to a CSV and prints a final prediction from the last row. 
 
