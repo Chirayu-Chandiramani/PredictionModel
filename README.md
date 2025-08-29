@@ -17,9 +17,24 @@ For each telemetry row (timestamp, lat, lon, altitude):
  g. Convert drift (meters + bearing) into a predicted (lat, lon) landing coordinate.
 Save and print results.
 
-FURTHER WORK TO BE DONE. 
+Physics Constants
+
+G = 9.81 → Earth gravity (m/s²). Objects accelerate downwards ~9.81 m/s each second (ignoring drag).
+R_EARTH = 6,371,000.0 → Earth’s radius (m). Used to convert GPS lat/lon into X–Y distances.
+RHO0 = 1.225 → Air density at sea level (kg/m³). Thins with altitude → less drag.
+SCALE_HEIGHT = 8500.0 → Scale height (m). At ~8.5 km higher, air density drops to ~37% of sea-level value.
+
+ 
+Telemetry Columns
+TIME_COL = "timestamp" → Time of each reading.
+LAT_COL = "lat" → Latitude (north–south).
+LON_COL = "long" → Longitude (east–west).
+ALT_COL = "altitude" → Altitude above ground/sea.
+(Using variables avoids hardcoding column names in the code.)
  
 
+The Output file is given by OUTPUT_CSV = "predictions_per_row.csv" at line 48
 
+FURTHER WORK TO BE DONE
 
 
